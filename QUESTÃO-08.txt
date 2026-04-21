@@ -1,0 +1,63 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char nome[50];
+    char pais[50];
+    char modalidade[50];
+    float tempoSegundos;
+} Atleta;
+
+int main() {
+    Atleta atletas[100];
+    int n, i, j;
+    Atleta aux;
+
+    printf("Digite a quantidade de atletas: ");
+    scanf("%d", &n);
+
+    for(i = 0; i < n; i++) {
+        printf("\nAtleta %d\n", i+1);
+
+        printf("Nome: ");
+        scanf(" %[^\n]", atletas[i].nome);
+
+        printf("Pais: ");
+        scanf(" %[^\n]", atletas[i].pais);
+
+        printf("Modalidade: ");
+        scanf(" %[^\n]", atletas[i].modalidade);
+
+        printf("Tempo (s): ");
+        scanf("%f", &atletas[i].tempoSegundos);
+    }
+
+    // Insertion Sort
+    for(i = 1; i < n; i++) {
+        aux = atletas[i];
+        j = i - 1;
+
+        while(j >= 0 && atletas[j].tempoSegundos > aux.tempoSegundos) {
+            atletas[j + 1] = atletas[j];
+            j--;
+        }
+        atletas[j + 1] = aux;
+    }
+
+    printf("\nRanking final:\n");
+
+    for(i = 0; i < n; i++) {
+        printf("\n%dº lugar\n", i+1);
+        printf("Nome: %s\n", atletas[i].nome);
+        printf("Pais: %s\n", atletas[i].pais);
+        printf("Modalidade: %s\n", atletas[i].modalidade);
+        printf("Tempo: %.2f s\n", atletas[i].tempoSegundos);
+
+        if(i == 0) {
+            printf("Diferenca: 0.00 s (vencedor)\n");
+        } else {
+            printf("Diferenca: +%.2f s\n", atletas[i].tempoSegundos - atletas[0].tempoSegundos);
+        }
+    }
+
+}

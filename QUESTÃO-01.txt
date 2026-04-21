@@ -1,0 +1,55 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Aluno {
+    char nome[50];
+    int matricula;
+    float nota;
+};
+
+int main() {
+
+    int n;
+
+    printf("Quantidade de alunos: ");
+    scanf("%d", &n);
+
+    struct Aluno alunos[n];
+
+    // Leitura dos dados
+    for(int i = 0; i < n; i++) {
+        printf("\n- Aluno %d -\n", i + 1);
+
+        printf("Nome: ");
+        scanf(" %[^\n]", alunos[i].nome);
+
+        printf("Matricula: ");
+        scanf("%d", &alunos[i].matricula);
+
+        printf("Nota: ");
+        scanf("%f", &alunos[i].nota);
+    }
+
+    // Bubble sort, ocorre o processo de organizar os alunos em ordem decrescente
+    for(int i = 0; i < n - 1; i++) {
+        for(int j = 0; j < n - i - 1; j++) {
+
+            if(alunos[j].nota < alunos[j + 1].nota) {
+
+                struct Aluno temp = alunos[j];
+                alunos[j] = alunos[j + 1];
+                alunos[j + 1] = temp;
+
+            }
+        }
+    }
+
+    printf("Alunos Ordenados por ordem de nota decrescente:\n");
+
+    for(int i = 0; i < n; i++) {
+        printf("\nAluno %d\n", i + 1);
+        printf("Nome: %s\n", alunos[i].nome);
+        printf("Matricula: %d\n", alunos[i].matricula);
+        printf("Nota: %.2f\n", alunos[i].nota);
+    }
+}

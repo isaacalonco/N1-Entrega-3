@@ -1,0 +1,75 @@
+#include <stdio.h>
+#include <string.h>
+
+typedef struct {
+    char nome[100];
+    int idade;
+    float peso;
+    float altura;
+    Paciente;
+}
+
+// Função para calcular IMC
+float calcularIMC(float peso, float altura) {
+    return peso / (altura * altura);
+}
+
+// Insertion Sort por idade
+void insertionSort(Paciente v[], int n) {
+    int i, j;
+    Paciente chave;
+
+    for (i = 1; i < n; i++) {
+        chave = v[i];
+        j = i - 1;
+
+        while (j >= 0 && v[j].idade > chave.idade) {
+            v[j + 1] = v[j];
+            j--;
+        }
+        v[j + 1] = chave;
+    }
+}
+
+int main() {
+    int N, i;
+
+    printf("Digite a quantidade de pacientes: ");
+    scanf("%d", &N);
+
+    Paciente pacientes[N];
+
+    // Leitura dos dados
+    for (i = 0; i < N; i++) {
+        printf("\nPaciente %d\n", i + 1);
+
+        printf("Nome: ");
+        scanf(" %[^\n]", pacientes[i].nome);
+
+        printf("Idade: ");
+        scanf("%d", &pacientes[i].idade);
+
+        printf("Peso (kg): ");
+        scanf("%f", &pacientes[i].peso);
+
+        printf("Altura (m): ");
+        scanf("%f", &pacientes[i].altura);
+    }
+
+    // Ordenação
+    insertionSort(pacientes, N);
+
+    // Exibição
+    printf("\nLista ordenada por idade:\n");
+
+    for (i = 0; i < N; i++) {
+        float imc = calcularIMC(pacientes[i].peso, pacientes[i].altura);
+
+        printf("\nNome: %s\n", pacientes[i].nome);
+        printf("Idade: %d\n", pacientes[i].idade);
+        printf("Peso: %.2f kg\n", pacientes[i].peso);
+        printf("Altura: %.2f m\n", pacientes[i].altura);
+        printf("IMC: %.2f\n", imc);
+    }
+
+}

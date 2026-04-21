@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <string.h>
+
+struct Candidato {
+    char nome[50];
+    float pontuacao;
+    int experienciaAnos;
+};
+
+void exibir(struct Candidato v[], int n) {
+    printf("\n--- Lista de Candidatos ---\n");
+
+    for (int i = 0; i < n; i++) {
+        printf("\nNome: %s", v[i].nome);
+        printf("\nPontuacao: %.2f", v[i].pontuacao);
+        printf("\nExperiencia: %d anos\n", v[i].experienciaAnos);
+    }
+}
+
+int main() {
+    struct Candidato v[100], chave;
+    int n = 0, j;
+
+    while (1) {
+
+        printf("\nNome (ou 'sair'): ");
+        scanf(" %49[^\n]", chave.nome);
+
+        if (strcmp(chave.nome, "sair") == 0)
+            break;
+
+        printf("Pontuacao: ");
+        scanf("%f", &chave.pontuacao);
+
+        printf("Experiencia: ");
+        scanf("%d", &chave.experienciaAnos);
+
+        j = n - 1;
+
+        while (j >= 0 && v[j].pontuacao < chave.pontuacao) {
+            v[j+1] = v[j];
+            j--;
+        }
+
+        v[j+1] = chave;
+        n++;
+
+        exibir(v, n);
+    }
+}

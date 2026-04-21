@@ -1,0 +1,75 @@
+#include <stdio.h>
+
+struct Cidade { char nome[40]; char estado[3]; long populacao; float area; };
+
+void lerCidades(struct Cidade cidade[], int n) {
+    int i;
+
+    for (i = 0; i < n; i++) {
+        printf("\n---- CIDADE %d ----\n", i + 1);
+
+        printf("Nome: ");
+        scanf(" %[^\n]", cidade[i].nome);
+
+        printf("Estado: ");
+        scanf("%2s", cidade[i].estado);
+
+        printf("Populacao: ");
+        scanf("%ld", &cidade[i].populacao);
+
+        printf("Area: ");
+        scanf("%f", &cidade[i].area);
+    }
+}
+
+void bubbleSort(struct Cidade cidade[], int n) {
+    int i, j, trocou;
+    struct Cidade aux;
+
+    for (i = 0; i < n - 1; i++) {
+        trocou = 0; 
+
+        for (j = 0; j < n - 1 - i; j++) {
+            if (cidade[j].populacao > cidade[j + 1].populacao) {
+                aux = cidade[j];
+                cidade[j] = cidade[j + 1];
+                cidade[j + 1] = aux;
+                trocou = 1;
+            }
+        }
+
+        printf("\nPassada %d realizada\n", i + 1);
+
+        if (!trocou) {
+            printf("Ordenacao terminou antecipadamente na passada %d\n", i + 1);
+            break;
+        }
+    }
+}
+
+void mostrar(struct Cidade cidade[], int n) {
+    int i;
+
+    printf("\n---- RESULTADO ORDENADO ----\n");
+
+    for (i = 0; i < n; i++) {
+        printf("\nNome: %s", cidade[i].nome);
+        printf("\nEstado: %s", cidade[i].estado);
+        printf("\nPopulacao: %ld", cidade[i].populacao);
+        printf("\nArea: %.2f\n", cidade[i].area);
+    }
+}
+
+int main() {
+    int n;
+
+    printf("Quantas cidades? ");
+    scanf("%d", &n);
+
+    struct Cidade cidade[n];
+
+    lerCidades(cidade, n);
+    bubbleSort(cidade, n);
+    mostrar(cidade, n);
+
+}

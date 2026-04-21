@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+
+struct livros{
+	int codigo;
+	char desc[100];
+	double preco;
+	int estoque;
+};
+void Ordenar(struct livros livros[],int *n){
+    struct livros aux;
+    int i, j;
+
+    for (i = 0; i < *n - 1; i++) {
+        for (j = 0; j < *n - i - 1; j++) {
+
+            if (livros[j].preco > livros[j+1].preco) {
+                aux    = livros[j];
+                livros[j]   = livros[j+1];
+                livros[j+1] = aux;
+            }
+        }
+    }
+}
+int main() {
+	int n;
+	printf("Digite a quantidade de produtos para registrar: \n");
+	scanf("%d",&n);
+	struct livros livros[n];
+
+	int i,found=0;
+	double valor;
+	for(i=0;i<n;i++){
+		printf("digite o codigo do produto %d: \n",i+1);
+		scanf("%d",&livros[i].codigo);
+
+		printf("digite a descricao do produto %d : \n",i+1);
+		scanf(" %99[^\n]",livros[i].desc);
+
+		printf("digite preco do produto %d: \n",i+1);
+		scanf("%lf",&livros[i].preco);
+
+		printf("digite a quantidade do estoque do produto %d: \n",i+1);
+		scanf("%d",&livros[i].estoque);
+	}
+		Ordenar(livros,&n);
+		printf("digite o valor maximo para exibir os produtos: \n");
+		scanf("%lf",&valor);
+
+		for(i=0;i<n;i++){
+			if(valor > livros[i].preco)
+			{
+				printf("\n-----PRODUTO %d-----\n",i+1);
+				printf("codigo: %d \n",livros[i].codigo);
+				printf("descricao: %s \n",livros[i].desc);
+				printf("preco: %lf \n",livros[i].preco);
+				printf("estoque: %d \n",livros[i].estoque);
+				found++;
+			}
+		}
+	if(found == 0) {
+		printf("Nenhum produto encontrado.");
+	}
+}
